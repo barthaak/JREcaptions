@@ -36,7 +36,7 @@
     <h3> Captions data </h3>
     <p> Some podcasts have auto generated captions. Search here to find the captions for any podcast number:</p>
     
-    <form method="POST" action="/captions">
+    <form method="POST" action="/captions" autocomplete="off">
     {% csrf_token %}
     <input type="number" name="pod_num" placeholder="#podcast">
     
@@ -46,7 +46,7 @@
     <br>
     <p> It can be fun to look up the most important words for each of the guests. Therefore I use the TF-IDF method to find these words. <br> 
     Below you can look up the most important words for a guest or a multiple guests (list separated by a ","):</p>
-    <form method="POST" action="/tfidf">
+    <form method="POST" action="/tfidf" autocomplete="off">
     {% csrf_token %}
     <input type="text" name="names" placeholder="e.g. Diaz, Peterson" size="40">
     
