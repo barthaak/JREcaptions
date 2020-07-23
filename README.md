@@ -14,6 +14,6 @@ Second, I show all the captions (after segmentation) for podcasts.
 Finally, I apply TF-IDF on the podcasts grouped by guest. This shows the 25 most important words for each guest.
 
 #### Result:
-![clicking through the django project](./jregif.gif)
+![clicking through the django project](./mediaMD/jregif.gif)
 
-![Example output TF-IDF](./example_output.png)
+![Example output TF-IDF](./mediaMD/example_output.PNG)
