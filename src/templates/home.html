@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JRE Analysis</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href={% static "stylesheet.css" %}>
+</head>
+<body>
+    <h1> Joe Rogan Experience - Data Analysis </h1>
+    <br>
+    <h3> Plotting numbers </h3>
+    <p> Here you can plot some scatter plots: </p>
+    <form method="POST" action="/plotting">
+    {% csrf_token %}
+    
+      <label >X-axis:</label>
+      <select name="x_textfield">
+        <option value="Views">Views</option>
+        <option value="Rating">Rating</option>
+        <option value="Duration">Duration</option>
+        <option value="PodNum">Podcast number</option>
+      </select>
+      <label >Y-axis:</label>
+      <select name="y_textfield">
+        <option value="Views">Views</option>
+        <option value="Rating">Rating</option>
+        <option value="Duration">Duration</option>
+        <option value="PodNum">Podcast number</option>
+      </select>
+      <input type="submit" value="Plot">
+    </form>
+    
+    <br>
+    <h3> Captions data </h3>
+    <p> Some podcasts have auto generated captions. Search here to find the captions for any podcast number:</p>
+    
+    <form method="POST" action="/captions">
+    {% csrf_token %}
+    <input type="number" name="pod_num" placeholder="#podcast">
+    
+    <button type="submit">Show captions</button>
+    </form>
+    
+    <br>
+    <p> It can be fun to look up the most important words for each of the guests. Therefore I use the TF-IDF method to find these words. <br> 
+    Below you can look up the most important words for a guest or a multiple guests (list separated by a ","):</p>
+    <form method="POST" action="/tfidf">
+    {% csrf_token %}
+    <input type="text" name="names" placeholder="e.g. Diaz, Peterson" size="40">
+    
+    <button type="submit">Show TF-IDF</button>
+    </form>
+    <br>
+    <br>
+    <p>This data was collected on July 13 2020, up until podcast 1506</p>
+
+</body>
+</html>

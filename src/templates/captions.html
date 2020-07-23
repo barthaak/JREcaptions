@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Text</title>
+
+</head>
+
+<body>
+    <h2> {{ title }} </h2>
+    {% if caps == 'No captions available' %}
+        <p> {{ caps }} </p>
+    {% else %}
+        {% for sentence in caps %}
+            <p> {{ forloop.counter }} - {{ sentence }} </p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
+
+<!--
+{% for sentence in caps %}
+    <p> {{ forloop.counter }} - {{ sentence }} </p>
+{% endfor %}
+-->
