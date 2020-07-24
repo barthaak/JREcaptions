@@ -36,9 +36,13 @@ def top_mean_feats(vecs, features, grp_ids=[], min_tfidf=0, top_n=25):
                       columns=['feature','tfidf'])
     return df
 
-def checkInName(names,word):
+def checkInName(item,word):
+    return all(elem in item.replace(',','').lower().split() for elem in word.lower().split())
+
+
+def getNameIds(names,word):
     all_names = list(names)
-    ids = [c for c,i in enumerate(all_names) if word.lower() in i.replace(',','').lower().split()]
+    ids = [c for c,i in enumerate(all_names) if checkInName(i,word)]
     return ids
     
 
@@ -49,7 +53,7 @@ def top_feats_by_class(names, vecs, y, features, min_tfidf=0, top_n=25):
     dfs = []
     labels = np.unique(y)
     for label in labels:
-        ids = np.array(checkInName(names,label))
+        ids = np.array(getNameIds(names,label))
         feats_df = top_mean_feats(vecs, features, ids, min_tfidf=min_tfidf, top_n=top_n)
         feats_df['label'] = label
         feats_df['num'] = len(ids)
