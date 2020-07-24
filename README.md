@@ -3,7 +3,7 @@ This repository contains a small fun project that I did. I am a fan of the Joe R
 In this project I mostly focus on the auo-generated captions from the videos. 
 
 ### Obtianing youtube data
-First, I scrape all the titles from the JRE podcasts and use pytube to obtain information for each podcast (up until podcast 1506, in the data: 1403 total podcasts of which 729 have captions). 
+First, I scrape all the titles from the JRE podcasts and use pytube to obtain information for each podcast up until podcast 1506 (data on 1403 total videos of which 729 have captions). 
 Subsequently, I perform multiple operations on the auto-generated English captions. This prepares some further text analysis. 
 For instance, I use [Deep Segment](https://github.com/notAI-tech/deepsegment) to make the captions (which don't have any punctuation marks) more readable by splitting the text into segments.
 
