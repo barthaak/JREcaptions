@@ -8,14 +8,14 @@ class MyModel(models.Model):
                         # and doesn't need to be managed by Django
     
     pod_id = models.IntegerField(primary_key=True)
-    Title = models.TextField()	
+    Title = models.CharField(max_length=150)	
     Description = models.TextField()
     Views = models.IntegerField()
-    Rating = models.DecimalField(decimal_places=6,max_digits=10)
+    Rating = models.DecimalField(decimal_places=6,max_digits=7)
     Duration = models.IntegerField()
     Captions = models.TextField()	
     PodNum = models.IntegerField()
     TextSegments = models.TextField()	 
     CaptionWords = models.TextField()	
-    Name = models.TextField()	 
+    Name = models.CharField(max_length=150) 
     TextIntervalDicts = models.TextField()

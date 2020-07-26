@@ -23,9 +23,9 @@ for col in ['Captions','TextSegments', 'CaptionWords', 'TextIntervalDicts']:
 conn = sqlite3.connect('./src/jreDB.sqlite3')
 c = conn.cursor()
 
-c.execute('CREATE TABLE JRE (id integer PRIMARY KEY NOT NULL, Title text, Description text, Views integer, \
-          Rating real, Duration integer, Captions text, PodNum integer, \
-          TextSegments text, CaptionWords text, Name text, TextIntervalDicts text)')
+c.execute('CREATE TABLE JRE (id INTEGER PRIMARY KEY NOT NULL, Title TEXT, Description TEXT, Views INTEGER, \
+          Rating REAL, Duration INTEGER, Captions TEXT, PodNum INTEGER, \
+          TextSegments TEXT, CaptionWords TEXT, Name TEXT, TextIntervalDicts TEXT)')
 conn.commit()
     
 df_sql.to_sql('JRE',conn, if_exists='replace', index=False)
@@ -41,9 +41,9 @@ df_sql.to_sql('JRE',conn, if_exists='replace', index=False)
 
 #     /*create a new table with the same column names and types while
 #     defining a primary key for the desired column*/
-#     CREATE TABLE JRE (id integer PRIMARY KEY NOT NULL, Title text, Description text, Views integer, \
-#           Rating real, Duration integer, Captions text, PodNum integer, \
-#           TextSegments text, CaptionWords text, Name text, TextIntervalDicts text, id integer);
+#     CREATE TABLE JRE (id INTEGER PRIMARY KEY NOT NULL, Title TEXT, Description TEXT, Views INTEGER, \
+#           Rating REAL, Duration INTEGER, Captions TEXT, PodNum INTEGER, \
+#           TextSegments TEXT, CaptionWords TEXT, Name TEXT, TextIntervalDicts TEXT, id INTEGER);
 
 #     INSERT INTO JRE SELECT * FROM old_table;
 
