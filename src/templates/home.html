@@ -33,29 +33,102 @@
     </form>
     
     <br>
-    <h3> Captions data </h3>
+    <h3> Captions </h3>
     <p> Some podcasts have auto-generated captions. Search here to find the captions for any podcast number:</p>
     
-    <form method="POST" action="/captions" autocomplete="off">
+    <form method="POST" onsubmit="return validateForm('no_empty_captions','captions_form','pod_num')" 
+    name="captions_form" action="/captions" autocomplete="off">
     {% csrf_token %}
-    <input type="number" name="pod_num" placeholder="#podcast">
+    <input type="number" name="pod_num" placeholder="e.g. 1400">
     
     <button type="submit">Show captions</button>
+    <span id="no_empty_captions" style="color: red; font-size: 0.7em"></span>
+
+    </form>
+    <br>
+    <h3> Captions TF-IDF</h3>
+
+    <p> TF-IDF scores can be used to find words that characterize each podcast. <br>
+    Below you can search for 20 podcasts that most closely related to a topic of your choosing. <br>
+    Besides, you can also select the "Name" radio button called to search for podcasts based on the name of the guest.</p>
+    <form id="topic_name">
+    <label>
+        <input type="radio" name="myradio" value="topic" checked/>Topic
+    </label>
+    <label>
+        <input type="radio" name="myradio" value="name"/>Name
+    </label>
     </form>
     
+    <p></p>
+    <div id="topic_div">
+    <form method="POST" onsubmit="return validateForm('no_empty_tfidf_search','tfidf_search_form','tfidf_word')" 
+    name="tfidf_search_form" action="/tfidf_search" autocomplete="off">
+    {% csrf_token %}
+    <input type="text" name="tfidf_word" placeholder="e.g. nutrition" size="20">
+    <button type="submit">Search podcasts</button>
+    <span id="no_empty_tfidf_search" style="color: red; font-size: 0.7em"></span>
+    </form>
+    </div> 
+    
+    <div id="name_div">
+    <form method="POST" onsubmit="return validateForm('no_empty_name_search','name_search_form','name_word')" 
+    name="name_search_form" action="/name_search" autocomplete="off">
+    {% csrf_token %}
+    <input type="text" name="name_word" placeholder="e.g. Graham Hancock" size="20">
+    <button type="submit">Search podcasts</button>
+    <span id="no_empty_name_search" style="color: red; font-size: 0.7em"></span>
+    </form>
+    </div> 
+
+
+    
     <br>
+    
     <p> It can be fun to look up the most important words for each of the guests. Therefore I use the TF-IDF method to find these words. <br> 
     Below you can look up the most important words for a guest or a multiple guests (list separated by a ","):</p>
-    <form method="POST" action="/tfidf" autocomplete="off">
+    <form method="POST" onsubmit="return validateForm('no_empty_tfidf_guest','tfidf_guest_form','names')" 
+    name="tfidf_guest_form" action="/tfidf_guest" autocomplete="off">
     {% csrf_token %}
     <input type="text" name="names" placeholder="e.g. Diaz, Jordan Peterson" size="40">
     
     <button type="submit">Show TF-IDF</button>
+    <span id="no_empty_tfidf_guest" style="color: red; font-size: 0.7em"></span>
+
     </form>
     <br>
     <br>
-    <p>This data was collected on July 13 2020, up until podcast 1506. <br>
-    Note that not all podcasts are available and some podcasts are divided into multiple parts.</p>
+    <p><i>This data was collected on July 13 2020, up until podcast 1506. <br>
+    Note that not all podcasts are available and some podcasts are divided into multiple parts.</i></p>
 
+
+    <script type="text/javascript">
+        function validateForm(id_span, id_form, id_input) {
+            var a = document.forms[id_form][id_input].value;
+            if (a == null || a == "") {
+                document.getElementById(id_span).textContent = "please enter an input";
+                return false 
+            } else {
+                document.getElementById(id_span).textContent = "";
+                return true 
+            }
+
+        }
+
+        document.getElementById("name_div").style.display = "none";
+        var radios = document.forms["topic_name"].elements["myradio"];
+        for(var i = 0, max = radios.length; i < max; i++) {
+            radios[i].onclick = function() {
+                if (this.value == "topic") {
+                    document.getElementById("topic_div").style.display = "block";
+                    document.getElementById("name_div").style.display = "none";
+                } else {
+                    document.getElementById("name_div").style.display = "block";
+                    document.getElementById("topic_div").style.display = "none";
+                };
+            }
+        }
+        
+    </script>
 </body>
 </html>

@@ -19,3 +19,5 @@ class MyModel(models.Model):
     CaptionWords = models.TextField()	
     Name = models.CharField(max_length=150) 
     TextIntervalDicts = models.TextField()
+    TfIdfAnalysis = models.TextField()
+    TFIDFvector = models.TextField()

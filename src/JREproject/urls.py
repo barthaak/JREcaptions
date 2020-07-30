@@ -19,12 +19,16 @@ from django.urls import path
 from pages.views import home_view
 from pages.views import plot_view
 from pages.views import captions_view
-from pages.views import tfidf_view
+from pages.views import tfidfGuest_view
+from pages.views import tfidfSearch_view
+from pages.views import nameSearch_view
 
 urlpatterns = [
     path('', home_view, name='home'),
     path('plotting', plot_view, name='plotting'),
-    path('tfidf', tfidf_view, name='tfidf'),
+    path('tfidf_guest', tfidfGuest_view, name='tfidfGuest'),
+    path('tfidf_search', tfidfSearch_view, name='tfidfSearch'),
+    path('name_search', nameSearch_view, name='nameSearch'),
     path('captions', captions_view, name='captions'),
     path('admin/', admin.site.urls),
 ]

@@ -9,7 +9,7 @@ import pandas as pd
 import sqlite3
 
 
-df_init = pd.read_pickle('JREdfWithTimeInfo.pkl')
+df_init = pd.read_pickle('JREdfTFIDFinfo.pkl')
 
 df_sql = df_init.copy()
 df_sql['pod_id'] = list(df_sql.index)
@@ -17,7 +17,7 @@ col = df_sql.pop("pod_id")
 df_sql.insert(0, col.name, col)
 
 
-for col in ['Captions','TextSegments', 'CaptionWords', 'TextIntervalDicts']:
+for col in ['Captions','TextSegments', 'CaptionWords', 'TextIntervalDicts', 'TfIdfAnalysis', 'TFIDFvector']:
     df_sql[col] = df_sql[col].apply(repr)
 
 conn = sqlite3.connect('./src/jreDB.sqlite3')
@@ -25,7 +25,7 @@ c = conn.cursor()
 
 c.execute('CREATE TABLE JRE (id INTEGER PRIMARY KEY NOT NULL, Title TEXT, Description TEXT, Views INTEGER, \
           Rating REAL, Duration INTEGER, Captions TEXT, PodNum INTEGER, \
-          TextSegments TEXT, CaptionWords TEXT, Name TEXT, TextIntervalDicts TEXT)')
+          TextSegments TEXT, CaptionWords TEXT, Name TEXT, TextIntervalDicts TEXT, TfIdfAnalysis TEXT, TFIDFvector TEXT)')
 conn.commit()
     
 df_sql.to_sql('JRE',conn, if_exists='replace', index=False)

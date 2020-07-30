@@ -9,8 +9,11 @@ For instance, I use [Deep Segment](https://github.com/notAI-tech/deepsegment) to
 
 ### Django
 I convert the dataframes into a sqlite3 table and use this table in Django. In this way one can easily access the information in the database.
-There are three ways in which the django app uses the data. First, I create scatter plots of any two numeric variables in the data. 
+There are four ways in which the django app uses the data. 
+First, I create scatter plots of any two numeric variables in the data. 
 Second, I show all the captions (after segmentation) for podcasts. 
+Thirdly, I use the TF-IDF scores for each podcast to measure similarity to a phrase entered by the user. Subsequently, I use the similaraty measure to output 20 podcasts that relate to the input phrase the most. 
+Besides the topics, it is possible simply search for a particular name as well.
 Finally, I apply TF-IDF on the podcasts grouped by guest. This shows the 25 most important words for each guest.
 
 #### Result:

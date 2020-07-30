@@ -129,12 +129,22 @@ def getPodDict(text, textSamp):
     vectors_interval = vectorizer_interval.fit_transform(interval_texts)
     feature_names_interval = vectorizer_interval.get_feature_names()
     
-    top_feats_intervals = [top_feats_in_doc(vectors_interval,feature_names_interval,i, 10) for i in range(len(interval_texts))] 
+    top_feats_intervals = [top_feats_in_doc(vectors_interval,feature_names_interval,i, 25) for i in range(len(interval_texts))] 
     dict_int = {'StartEnd':startend_list,'IntervalText':interval_texts,
-                           'IntervalSegs':interval_segs,'Top10':top_feats_intervals}
+                           'IntervalSegs':interval_segs,'Top25':top_feats_intervals}
     
     return dict_int
 
+def identity_tokenizer(text):
+  return text
+
+def getTFIDFs(captionsSeries):
+    vectorizer = TfidfVectorizer(tokenizer = identity_tokenizer, lowercase=False)
+    all_captions = [list(t) for t in captionsSeries if type(t) == set]
+    vectors = vectorizer.fit_transform(all_captions)
+    feature_names = vectorizer.get_feature_names()
+    
+    return vectors, feature_names
 
 df_init = pd.read_pickle('JREdfWithBoW.pkl')
 df_init['Name'] = [getName(i) for i in df_init['Title']]
@@ -143,14 +153,22 @@ df_init['Name'] = [getName(i) for i in df_init['Title']]
 # test_textSamp = df_init['TextSegments'][146]
 # df_test = pd.DataFrame(getPodDict(test_text,test_textSamp))
 
+vectors_pods, features_pods = getTFIDFs(df_init['CaptionWords'])
+
 all_interval_dicts = []
+tfidf_per_pod = []
+nonNan = 0
 for pod in tqdm(range(len(df_init))):
     if type(df_init['Captions'][pod]) == str:
         all_interval_dicts.append(getPodDict(df_init['Captions'][pod],df_init['TextSegments'][pod]))
+        tfidf_per_pod.append(top_feats_in_doc(vectors_pods,features_pods, nonNan, 150))
+        nonNan += 1
     else:
         all_interval_dicts.append(np.nan)
-
+        tfidf_per_pod.append(np.nan)
+        
 df_init['TextIntervalDicts'] = all_interval_dicts
+df_init['TfIdfAnalysis'] = tfidf_per_pod
 
 df_init.to_pickle('JREdfWithTimeInfo.pkl')
 

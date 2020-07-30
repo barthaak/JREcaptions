@@ -1,0 +1,23 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JRE Analysis</title>
+    {% load static %}
+      <link rel="stylesheet" type="text/css" href={% static "stylesheet.css" %}>
+</head>
+
+<body>
+    <h2>Top 20 podcasts related to "{{ word }}" </h2>
+    {% for title in titles %}
+        <p> {{ forloop.counter }}. {{ title }} </p>
+    {% endfor %}
+</body>
+</html>
+
+<!--
+{% for sentence in caps %}
+    <p> {{ forloop.counter }} - {{ sentence }} </p>
+{% endfor %}
+-->

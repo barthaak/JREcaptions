@@ -12,9 +12,11 @@ import pandas as pd
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords
-
+from tqdm import tqdm
 
 from pages.tfidfAnalysis import *
+from pages.tfidfSearch import *
+
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
@@ -83,8 +85,57 @@ def captions_view(request, *args, **kwargs):
     else:
         return render(request, 'home.html')
     
+def tfidfSearch_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        tfidf_word = request.POST.get('tfidf_word', None)
+        tfidf_word = tfidf_word.lower()
+        
+        try:
+            db_tfidfs = MyModel.objects.values_list("TFIDFvector", flat=True)
+            db_tfidfs_list = []
+            for items in db_tfidfs:
+                if items != 'nan':
+                    tmp_list = items.replace('\n','').replace(' ','').replace('array(','').replace('dtype=float32)','').strip()[1:-2].split(',')
+                    tmp_list = [float(i) for i in tmp_list]
+                    db_tfidfs_list.append(tmp_list)
+                else:
+                    db_tfidfs_list.append(np.nan)
+            
+            closest_pods = getClosestPod(tfidf_word,db_tfidfs_list,20)
+
+            top_titles = []
+            for cl in closest_pods:
+                top_titles.append(MyModel.objects.get(pod_id = cl).Title)
+
+                
+            return render(request, 'tfidfSearch.html', {'word':tfidf_word,'titles': top_titles})
+            
+        except:
+            return HttpResponse("something went wrong")
+    else:
+        return render(request, 'home.html')
+
     
-def tfidf_view(request, *args, **kwargs):
+def nameSearch_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        name_word = request.POST.get('name_word', None)
+        name_word_lower = name_word.lower()
+        print(name_word_lower)
+        try:
+            db_names = MyModel.objects.values_list("Name", flat=True)
+            db_names = [i.lower() for i in db_names]  
+            pod_indeces = [c for c,n in enumerate(db_names) if name_word_lower in n]
+            pod_titles = [MyModel.objects.get(pod_id = c).Title for c in pod_indeces]
+            
+            return render(request, 'nameSearch.html', {'name':name_word,'titles': pod_titles})
+            
+        except:
+            return HttpResponse("something went wrong")
+    else:
+        return render(request, 'home.html')
+     
+    
+def tfidfGuest_view(request, *args, **kwargs):
     if request.method == 'POST':
         names = request.POST.get('names', None)
         if ',' in names:
@@ -149,7 +200,7 @@ def tfidf_view(request, *args, **kwargs):
             string = base64.b64encode(buf.read())
             uri = urllib.parse.quote(string)
 
-            return render(request, 'tfidf.html', {'data':uri})
+            return render(request, 'tfidfGuest.html', {'data':uri})
             
         except:
             return HttpResponse("something went wrong")  
