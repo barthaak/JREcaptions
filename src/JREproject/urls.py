@@ -31,4 +31,4 @@ urlpatterns = [
     path('name_search', nameSearch_view, name='nameSearch'),
     path('captions', captions_view, name='captions'),
     path('admin/', admin.site.urls),
-]
+] 

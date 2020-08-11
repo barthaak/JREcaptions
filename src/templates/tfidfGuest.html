@@ -1,14 +1,4 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>JRE Analysis</title>
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href={% static "stylesheet.css" %}>
-</head>
-
-<body>
+{% extends 'base.html' %}
+{% block content %}
   <img src="data:image/png;base64, {{ data }}" alt="" height="720" width="1300">
-</body>
-</html>
+{% endblock %}

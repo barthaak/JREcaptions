@@ -1,14 +1,5 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>JRE Analysis</title>
-    {% load static %}
-      <link rel="stylesheet" type="text/css" href={% static "stylesheet.css" %}>
-</head>
-
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <h2> {{ title }} </h2>
     {% if caps == 'No captions available' %}
         <p> {{ caps }} </p>
@@ -17,8 +8,7 @@
             <p> {{ forloop.counter }} - {{ sentence }} </p>
         {% endfor %}
     {% endif %}
-</body>
-</html>
+{% endblock %}
 
 <!--
 {% for sentence in caps %}

@@ -1,13 +1,5 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>JRE Analysis</title>
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href={% static "stylesheet.css" %}>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <h1> Joe Rogan Experience - Data Analysis </h1>
     <br>
     <h3> Plotting numbers </h3>
@@ -128,7 +120,6 @@
                 };
             }
         }
-        
     </script>
-</body>
-</html>
+        
+{% endblock %}

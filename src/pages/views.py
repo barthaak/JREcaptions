@@ -41,7 +41,7 @@ def plot_view(request, *args, **kwargs):
             
             fig = plt.gcf()
             buf = io.BytesIO()
-            fig.savefig(buf,format='png')
+            fig.savefig(buf,format='png',transparent=True)
             buf.seek(0)
             string = base64.b64encode(buf.read())
             uri = urllib.parse.quote(string)
@@ -195,7 +195,7 @@ def tfidfGuest_view(request, *args, **kwargs):
             
             fig = plt.gcf()
             buf = io.BytesIO()
-            fig.savefig(buf,format='png')
+            fig.savefig(buf,format='png',transparent=True)
             buf.seek(0)
             string = base64.b64encode(buf.read())
             uri = urllib.parse.quote(string)
