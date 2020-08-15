@@ -78,7 +78,7 @@
     <br>
     
     <p> It can be fun to look up the most important words for each of the guests. Therefore I use the TF-IDF method to find these words. <br> 
-    Below you can look up the most important words for a guest or a multiple guests (list separated by a ","):</p>
+    Below you can look up the most important words for a guest or multiple guests (list separated by a ","):</p>
     <form method="POST" onsubmit="return validateForm('no_empty_tfidf_guest','tfidf_guest_form','names')" 
     name="tfidf_guest_form" action="/tfidf_guest" autocomplete="off">
     {% csrf_token %}

@@ -25,6 +25,15 @@ def home_view(request, *args, **kwargs):
         }
     return render(request, 'home.html', my_context)
 
+def changeLabel(label):
+    if label == 'PodNum':
+        return 'Podcast number'
+    elif label == 'Duration':
+        return 'Duration (sec)'
+    else:
+        return label
+    
+
 def plot_view(request, *args, **kwargs):
     if request.method == 'POST':
         x_text = request.POST.get('x_textfield', None)
@@ -33,6 +42,13 @@ def plot_view(request, *args, **kwargs):
         try:
             x_item = MyModel.objects.values_list(x_text, flat=True)
             y_item = MyModel.objects.values_list(y_text, flat=True)
+            titles = list(MyModel.objects.values_list('Title', flat=True))
+            coordinate_list = [{'x':i,'y':y_item[c]} for c,i in enumerate(x_item)] 
+            
+            x_text = changeLabel(x_text)
+            y_text = changeLabel(y_text)
+                
+            """
             plt.figure(figsize=(20,10))
             plt.xlabel(x_text, fontsize=16)
             plt.ylabel(y_text, fontsize=16)
@@ -46,14 +62,17 @@ def plot_view(request, *args, **kwargs):
             string = base64.b64encode(buf.read())
             uri = urllib.parse.quote(string)
             
-            # db_item = MyModel.objects.get(pod_id = search_id)
-            # #do something with user
-
-            # html = ("<H1>{}</H1>".format(db_item.Title))
-            # return HttpResponse(html)
-            
+                    tooltips: {
+            callbacks: {
+                 label: function(tooltipItem, data) {
+                 var label = data.labels[tooltipItem.index];
+                 return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
+                 }
+            } 
+        }   
             return render(request, 'plot.html', {'data':uri})
-            
+            """
+            return render(request, 'plot.html',{'xy_data':coordinate_list,'titles':titles, 'labels':[x_text,y_text]})
         except:
             return HttpResponse("something went wrong")  
     else:

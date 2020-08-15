@@ -1,4 +1,67 @@
 {% extends 'base.html' %}
 {% block content %}
-  <img src="data:image/png;base64, {{ data }}" alt="" height="700" width="1300">
+
+<div class="plotting"> 
+  <canvas id="scPlot"></canvas>
+</div>
+
+  <!--<img src="data:image/png;base64, {{ data }}" alt="" height="700" width="1300">-->
+   
+  <script>
+
+  var ctx = document.getElementById('scPlot').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'scatter',
+    
+    // The data for our dataset
+    data: {
+        labels: {{ titles|safe }},
+
+        datasets: [{
+            backgroundColor: 'rgb(255, 99, 132, 0.6)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: {{ xy_data|safe }}
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                scaleLabel: {
+                    display: true,
+                    labelString: {{ labels|safe }}[0]
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: {{ labels|safe }}[1]
+                }
+            }]            
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            callbacks: {
+                 beforeLabel: function(tooltipItem, data) {
+                 var label = data.labels[tooltipItem.index];
+                 return label;
+                 },
+                 label: function(tooltipItem, data) {
+                 return  {{ labels|safe }}[0] + ': ' + tooltipItem.xLabel;
+                 },
+                 afterLabel: function(tooltipItem, data) {
+                 return  {{ labels|safe }}[1] + ': ' + tooltipItem.yLabel;
+                } 
+            } 
+        }     
+    }
+  });
+  </script>
 {% endblock %}
+

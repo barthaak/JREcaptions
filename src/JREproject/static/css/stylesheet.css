@@ -3,5 +3,9 @@ html * {
 }
 
 body {
-    background-color: #fffbf0;
+    background-color: #fafeff;
+}
+
+.plotting {
+    padding: 4em;
 }
