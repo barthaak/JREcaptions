@@ -1,2 +1,0 @@
-src/jreDB.sqlite3 filter=lfs diff=lfs merge=lfs -text
-JREdfTFIDFinfo.pkl filter=lfs diff=lfs merge=lfs -text

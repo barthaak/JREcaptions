@@ -1,6 +1,5 @@
-JREdataframe.pkl
-JREdf.pkl
-JREdfWithBoW.pkl
-JREdfWithBoWwithDict.pkl
-JREdfWithTimeInfo.pkl
+*.pkl
+*.txt
 src/static/
+src/jreDB.sqlite3
+

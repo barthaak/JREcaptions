@@ -11,7 +11,7 @@ from tqdm import tqdm
 from nltk.corpus import stopwords
 
 
-df = pd.read_pickle('JREdf.pkl')
+df = pd.read_pickle('JREdfUPDATED.pkl')
 
 def onlyWords(captions):
     new_cap = re.sub('\d{1,6}\\n\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}','',captions)

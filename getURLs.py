@@ -38,6 +38,6 @@ for vid in vid_elems:
         vid_hrefs.append(vid.get_attribute('href'))
         vid_titles.append(vid.text)
 
-with open('JREshows.txt','w', encoding='utf-8') as f:
+with open('JREshowsUPDATED.txt','w', encoding='utf-8') as f:
     for c,item in enumerate(vid_titles):
         f.write(item+' ||| '+vid_hrefs[c]+'\n')

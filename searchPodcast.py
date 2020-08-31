@@ -59,6 +59,28 @@ for c,cl in enumerate(closest_pods):
 
 """
 Example health weighted:
+Joe Rogan Experience #1261 - Peter Hotez 6.386777877807617
+Joe Rogan Experience #968 - Kelly Brogan 6.455836296081543
+Joe Rogan Experience #1066 - Mel Gibson & Dr. Neil Riordan 6.461118221282959
+Joe Rogan Experience #1451 - Dr. Peter Hotez 6.461612701416016
+Joe Rogan Experience #984 - Yvette d'Entremont 6.487346649169922
+Joe Rogan Experience #1508 - Peter Schiff 6.498476505279541
+Joe Rogan Experience #1037 - Chris Kresser 6.517295837402344
+Joe Rogan Experience #1454 - Dan Crenshaw 6.524044990539551
+Joe Rogan Experience #1432 - Aubrey de Grey 6.529116630554199
+Joe Rogan Experience #1213 - Dr. Andrew Weil 6.534524440765381
+Joe Rogan Experience #1442 - Shannon O'Loughlin 6.5370025634765625
+Joe Rogan Experience #994 - Dom D'Agostino 6.5485992431640625
+Joe Rogan Experience #1120 - Ben Greenfield 6.557004928588867
+Joe Rogan Experience #1145 - Peter Schiff 6.557714462280273
+Joe Rogan Experience #1500 - Barbara Freese 6.5596089363098145
+Joe Rogan Experience #1108 - Peter Attia 6.55989408493042
+Joe Rogan Experience #1474 - Dr. Rhonda Patrick 6.561276435852051
+Joe Rogan Experience #1114 - Matt Taibbi 6.563312530517578
+Joe Rogan Experience #1340 - John Nores 6.565150737762451
+Joe Rogan Experience #1478 - Joel Salatin 6.565529823303223    
+
+OLD:
 Joe Rogan Experience #1261 - Peter Hotez 6.367766857147217
 Joe Rogan Experience #1066 - Mel Gibson & Dr. Neil Riordan 6.448888778686523
 Joe Rogan Experience #984 - Yvette d'Entremont 6.4752583503723145

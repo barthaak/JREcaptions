@@ -10,9 +10,12 @@ import re
 from deepsegment import DeepSegment
 from tqdm import tqdm
 
+
+updating = True
+
 segmenter = DeepSegment('en')
 
-df = pd.read_pickle('JREdataframe.pkl')
+df = pd.read_pickle('JREdataframeUPDATED.pkl',)
 
 
 def getPodNum(vidtitle):
@@ -28,7 +31,6 @@ df['PodNum'] = vidnums
 df = df.sort_values(['PodNum','Title']).reset_index(drop=True)
 
 
-# 
 def removeNoise(captions):
     new_cap = re.sub('\d{1,6}\\n\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}','',captions)
     new_cap = re.sub('<.?font[^>]*>','',new_cap)
@@ -40,9 +42,20 @@ def removeNoise(captions):
 
 new_captions = []
 
-for i in tqdm(df['Captions']):
+if updating:
+    df_old = pd.read_pickle('JREdf.pkl')
+
+for c,i in enumerate(tqdm(df['Captions'])):
     if type(i) == str:
-        new_captions.append(removeNoise(i))
+        if updating:
+            title = df['Title'][c]
+            if title in list(df_old['Title']):
+                new_captions.append(df_old[df_old['Title'] == title]['TextSegments'].iloc[0])
+            else:
+                new_captions.append(removeNoise(i))
+        else:
+            new_captions.append(removeNoise(i))
+
     else:
         new_captions.append(i)
 
@@ -50,7 +63,7 @@ for i in tqdm(df['Captions']):
        
 df['TextSegments'] = new_captions
 
-df.to_pickle('JREdf.pkl')
+df.to_pickle('JREdfUPDATED.pkl')
 
 
 

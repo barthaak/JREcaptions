@@ -22,6 +22,7 @@ for col in ['Captions','TextSegments', 'CaptionWords', 'TextIntervalDicts', 'TfI
 
 conn = sqlite3.connect('./src/jreDB.sqlite3')
 c = conn.cursor()
+c.execute("DROP TABLE IF EXISTS JRE")
 
 c.execute('CREATE TABLE JRE (id INTEGER PRIMARY KEY NOT NULL, Title TEXT, Description TEXT, Views INTEGER, \
           Rating REAL, Duration INTEGER, Captions TEXT, PodNum INTEGER, \
